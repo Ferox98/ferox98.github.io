@@ -1,0 +1,18 @@
+{%- assign post = include.post | default: post -%}
+{%- assign words = post.content | number_of_words -%}
+{%- assign wpm = site.words_per_minute | default: 200 -%}
+{%- assign minutes = words | divided_by: wpm | ceil -%}
+
+<article class="post-teaser" itemscope itemtype="https://schema.org/CreativeWork">
+  <h3 class="post-teaser__title" itemprop="headline">
+    <a class="post-teaser__link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </h3>
+
+  <div class="post-teaser__meta">
+    <span class="meta-icon" aria-hidden="true">📅</span>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+    <span class="meta-sep">·</span>
+    <span class="meta-read">{{ minutes }} minute read</span>
+  </div>
+</article>
+
